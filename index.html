@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urbanrise Paradise on Earth - Luxury Villas</title>
+    <link rel="icon" type="image/x-icon" href="image/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos=fade-up" data-aos-duration="1000">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Tailwind CSS CDN for modern, responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons for high-quality SVG icons -->
@@ -100,24 +103,7 @@
 </head>
 
 <body class="antialiased text-gray-800">
-    <!-- Tailwind Custom Configuration (to enable custom gold color) -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#0F172A',
-                        'accent-gold': '#EAB308',
-                        'accent-dark': '#D97706',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
+  
     <!-- 1. Header (Sticky) -->
     <header id="main-header" class="luxury-section sticky top-0 z-50 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -147,7 +133,26 @@
         <!-- 2. Hero Section (Cinematic) -->
         <section id="hero" class="relative h-[80vh] md:h-[90vh] flex items-center justify-center luxury-section overflow-hidden">
             <!-- Video Background for cinematic effect -->
-            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 w-full h-full bg-black/40 z-10"></div>
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-40" id="hero-video">
+                <source src="image/urban.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="absolute inset-0 flex items-center justify-center z-20">
+                <button id="play-button" onclick="openVideoModal()" class="bg-accent-gold/90 hover:bg-accent-gold text-white rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center shadow-lg transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-play text-2xl md:text-3xl"></i>
+                </button>
+            </div>
+            
+            <!-- Video Modal -->
+            <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center">
+                <div class="relative w-full max-w-4xl mx-4">
+                    <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-accent-gold text-3xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <video id="modalVideo" controls class="w-full rounded-lg" src="image/urban.mp4"></video>
+                </div>
+            </div>
                 <!-- IMPORTANT: Replace the 'src' below with the actual URL to your compressed MP4 video file -->
                 <source src="image/urban.mp4" type="video/mp4">
                 <!-- Fallback: Placeholder image if video doesn't load -->
@@ -665,12 +670,56 @@
         <!-- End of Main Content Wrapper -->
     </main>
 
+    <!-- Sticky WhatsApp Button -->
+    <a href="https://wa.me/919952402011" class="fixed bottom-24 right-6 z-50 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Sticky Contact Button -->
+    <button onclick="openModal('interestModal')" class="fixed bottom-6 right-6 z-50 bg-accent-gold hover:bg-yellow-600 text-gray-900 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110">
+        <i class="fas fa-envelope text-2xl"></i>
+    </button>
+
+    <!-- Sticky Bottom Contact Bar -->
+   <!-- Sticky Bottom Contact Bar -->
+<div class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white z-40 shadow-lg border-t border-gray-800">
+    <div class="container mx-auto px-4 py-2">
+        <div id="success_message_col3" class="hidden mb-2 p-2 bg-green-100 text-green-700 rounded text-center text-sm"></div>
+        <div id="error_message3" class="hidden mb-2 p-2 bg-red-100 text-red-700 rounded text-center text-sm"></div>
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="hidden md:block w-32">
+                <img src="image/logo.png" alt="Urbanrise Logo" class="h-12 object-contain">
+            </div>
+            
+            <!-- Contact Form -->
+            <form id="sticky-contact-form" class="sticky-contact-form flex-1 flex flex-wrap items-center justify-end gap-3">
+                <div class="flex-1 min-w-[150px]">
+                    <input type="text" name="name" placeholder="Your Name" class="w-full px-3 py-1.5 text-sm rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold" required>
+                </div>
+                <div class="flex-1 min-w-[150px]">
+                    <input type="email" name="email" placeholder="Your Email" class="w-full px-3 py-1.5 text-sm rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold" required>
+                </div>
+                <div class="flex-1 min-w-[150px]">
+                    <input type="tel" name="mobile" placeholder="Your Mobile" class="w-full px-3 py-1.5 text-sm rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold" required>
+                </div>
+                <button id="contact_form_btn3" type="submit" class="bg-accent-gold hover:bg-yellow-600 text-gray-900 font-semibold px-4 py-1.5 text-sm rounded transition duration-300 whitespace-nowrap">
+                    Get Call Back
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
     <!-- 10. Footer -->
-    <footer class="luxury-section py-10 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <a href="#hero" class="text-2xl font-bold tracking-widest text-accent-gold uppercase block mb-4">
-                Urbanrise
-            </a>
+    <footer class="luxury-section py-10 border-t border-gray-800 relative z-30" style="margin-bottom: 80px;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <!-- Logo and Basic Info -->
+                <div class="mb-6 md:mb-0">
+                    <img src="image/logo.png" alt="Urbanrise Logo" class="h-16 mx-auto md:mx-0 mb-4">
+                    <p class="text-gray-400 text-sm">RERA No: PRM/KA/RERA/1251/310/PR/080223/005704</p>
+                </div>
             <p class="text-sm text-gray-400 mb-6">
                 Urbanrise Paradise on Earth. Exclusive 4 BHK Villas. RERA Approved.
                 <br>Kanakapura Road, Bangalore.
@@ -745,6 +794,38 @@
             <img id="lightbox-image" src="" alt="Gallery Image" class="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl">
         </div>
     </div>
+  <!-- AOS Animation Initialization -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="assets/js/main.js"></script>
+  
+  <!-- Tailwind Custom Configuration (to enable custom gold color) -->
+  <script>
+      // Initialize AOS
+      document.addEventListener('DOMContentLoaded', function() {
+          AOS.init({
+              duration: 1000,
+              once: true,
+              offset: 100,
+              easing: 'ease-in-out'
+          });
+      });
+
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      'primary-dark': '#0F172A',
+                      'accent-gold': '#EAB308',
+                      'accent-dark': '#D97706',
+                  },
+                  fontFamily: {
+                      sans: ['Inter', 'sans-serif'],
+                  }
+              }
+          }
+      }
+  </script>
 
 <script src="assets/js/contact.js"></script>
 <script src="assets/js/config.js"></script>
