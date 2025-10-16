@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbanrise Paradise on Earth - Luxury Villas</title>
+    <!-- Tailwind CSS CDN for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for high-quality SVG icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for the luxury aesthetic and smooth animations */
+        :root {
+            --color-primary: #0F172A; /* Slate 900 */
+            --color-accent: #EAB308; /* Amber 500 (Matte Gold look) */
+        }
+        
+        /* ADDED: Enables smooth scrolling for all anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* Light background for contrast */
+        }
+
+        /* Dark mode for the luxury sections */
+        .luxury-section {
+            background-color: var(--color-primary);
+            color: #E2E8F0; /* Slate 200 */
+            border-bottom: 1px solid #1E293B;
+        }
+
+        /* Custom Gold Button */
+        /* Updated: Changed from rounded-xl to rounded-md (equivalent to ~6px in default Tailwind scale) for a 5px oval-like look */
+        .btn-gold {
+            @apply inline-flex items-center justify-center px-6 py-3 font-semibold text-lg transition-all duration-300 ease-in-out transform shadow-lg rounded-md;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+        }
+        .btn-gold:hover {
+            @apply scale-105 shadow-2xl;
+            background-color: #D97706; /* Darker Gold on hover */
+        }
+
+        /* Attention/Blinking Effect for Primary CTAs */
+        .btn-attention {
+            animation: pulse-blink 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-blink {
+            0% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); }
+            50% { opacity: 0.95; transform: scale(1.02); box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+
+        /* Sticky Header */
+        #main-header {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image Reveal Animation (Simulated on load) */
+        .reveal-image {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .reveal-image.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Interaction Simulation for Master Plan */
+        #master-plan-content {
+            background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* Hide Scrollbar for carousels */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* New Scroll-Reveal Animation for Amenities */
+        .amenity-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .amenity-card.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="antialiased text-gray-800">
+    <!-- Tailwind Custom Configuration (to enable custom gold color) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0F172A',
+                        'accent-gold': '#EAB308',
+                        'accent-dark': '#D97706',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 1. Header (Sticky) -->
+    <header id="main-header" class="luxury-section sticky top-0 z-50 transition duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- LOGO PLACEMENT: Replaced text with <img> tag, set height to h-12 (48px) -->
+                <a href="#hero" class="flex items-center">
+                    <img src="image/logo2.png" 
+                         alt="Urbanrise Logo" 
+                         class="h-12 w-auto"
+                         onerror="this.src='https://placehold.co/150x48/0F172A/E2E8F0?text=Urbanrise'"
+                         loading="lazy">
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sm font-medium hover:text-accent-gold transition">The Project</a>
+                    <a href="#floorplans" class="text-sm font-medium hover:text-accent-gold transition">Floor Plans</a>
+                    <a href="#amenities" class="text-sm font-medium hover:text-accent-gold transition">Amenities</a>
+                    <a href="#gallery" class="text-sm font-medium hover:text-accent-gold transition">Gallery</a>
+                    <a href="#location" class="text-sm font-medium hover:text-accent-gold transition">Location</a>
+                </nav>
+                <button   style="border-radius: 20px;" id="header-cta" class="btn-gold text-sm py-2 px-4 shadow-xl btn-attention" onclick="openModal('interestModal')">
+                    <i data-lucide="" class="w-4 h-4 mr-2"></i> BOOK A VILLA
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Hero Section (Cinematic) -->
+        <section id="hero" class="relative h-[80vh] md:h-[90vh] flex items-center justify-center luxury-section overflow-hidden">
+            <!-- Video Background for cinematic effect -->
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-40">
+                <!-- IMPORTANT: Replace the 'src' below with the actual URL to your compressed MP4 video file -->
+                <source src="image/urban.mp4" type="video/mp4">
+                <!-- Fallback: Placeholder image if video doesn't load -->
+                <img src="https://placehold.co/1920x900/1e293b/a8a8a8?text=Cinematic+Villa+Video+Placeholder" 
+                     alt="Paradise on Earth Villa Exterior" 
+                     class="absolute inset-0 w-full h-full object-cover opacity-40"/>
+            </video>
+            
+            <!-- Dark Gradient Overlay for Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/30 to-transparent"></div>
+
+            <div class="relative z-10 text-center max-w-4xl px-4">
+                <!-- <p class="text-lg text-accent-gold font-medium mb-3 tracking-widest uppercase animate-pulse">The Address of Affluence</p> -->
+                <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight mb-8 text-white">
+                    URBANRISE
+                    <span class="block text-accent-gold">Paradise on Earth</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                    Luxury Meets Nature — <span style="color:#EAB308; font-weight: bold" >4BHK VILLAS </span> on Kanakapura Road for the Truly Uncompromising.
+                </p>
+                <button  style="border-radius: 20px;"  class="btn-gold text-xl px-10 py-4 shadow-2xl btn-attention" onclick="openModal('interestModal')">
+                    <i data-lucide="" class="w-6 h-6 mr-3"></i> STARTS @ <span style="color: blue; font-weight: bold; font-size: larger;" >₹3.17cr*</span> onwards
+                </button>
+                <!-- Trust Signal -->
+                <div class="flex justify-center items-center mt-6 space-x-4 text-gray-400">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    <p class="text-sm">Limited Units Only Available</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Wrapper (Using max-w-screen-2xl for expansive 90% feel) -->
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- 3. About Project Section (With Image Animation) -->
+            <section id="about" class="pt-8 pb-10 mt-8"> <!-- Reduced mt-16 to mt-8 and py- from 16/20 to 8/10 -->
+                <!-- Inner container to maintain dark background aesthetic, now framed by body background -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 luxury-section p-10 rounded-xl shadow-2xl">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="md:order-2">
+                            <h2  style="font-size:36px" class="text-4xl sm:text-5xl font-bold mb-6 text-white leading-tight">
+                                Urban Rise - Paradise on Earth <span class="text-accent-gold"> - Luxury 4BHk Villa</span>
+                            </h2>
+                            <p  style="text-align: justify;" class="text-lg text-gray-300 mb-6">
+                                Welcome to Urbanrise Paradise on Earth — Bengaluru’s first water-superabundant villa community where luxury meets responsibility. Spread across 24 acres with just 9 villas per acre, this IGBC Platinum pre-certified enclave ensures abundant open spaces, privacy, and peace of mind. 
+                            </p>
+                            <p  style="text-align: justify;"  class="text-lg text-gray-300 mb-6">
+                                Nestled in Gangasandra and embraced by 2190 acres of state-reserved forest, it offers an unmatched bond with nature — from walks under 1500+ trees to relaxing by a perennial stream. Choose from thoughtfully designed 4 BHK and 4 BHK + Home Office villas starting from ₹3.17 Cr, blending modern elegance with environmental intelligence. With 2.5 acres of themed leisure spaces, glamping zones, hammock parks, rain gardens, and a 32,000 sq.ft. grand clubhouse featuring an infinity pool, gym, banquet hall, squash court and co-working spaces — life here is nothing short of extraordinary. Urbanrise Paradise on Earth is more than a home — it’s a greener, healthier, future-ready lifestyle.
+                            </p>
+                            <!-- <ul class="space-y-3 mb-8 text-gray-300">
+                                <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-3 text-accent-gold"></i> Exclusive Gated Community</li>
+                                <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-3 text-accent-gold"></i> Double-Height Living Areas</li>
+                                <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-3 text-accent-gold"></i> Private Terraces & Deck Pools</li>
+                            </ul> -->
+                            <button  style="border-radius: 20px;" class="btn-gold px-8 py-3" onclick="openModal('interestModal')">
+                                GET BROUCHERS <i data-lucide="" class="w-4 h-4 ml-2"></i>
+                            </button>
+                        </div>
+                        <div class="md:order-1">
+                            <!-- Image Animation Reveal -->
+                            <img src="image/about.jpg"
+                                 alt="Luxury Villa Interiors"
+                                 class="w-full h-auto object-cover rounded-xl shadow-2xl reveal-image lazy-loaded"
+                                 id="about-image"
+                                 loading="lazy"
+                                 onerror="this.src='https://placehold.co/800x600/374151/ffffff?text=Interiors';"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Floor Plan Section (Interactive Carousel) -->
+            <section id="floorplans" class="py-16 bg-white"> <!-- Reduced py-20 to py-16 -->
+                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark"> Urban Rise - Paradise on Earth </h2>
+                <p class="text-xl text-center text-gray-600 mb-12">FLOOR PLAN</p>
+
+                <div class="relative">
+                    <div id="floorplan-carousel" class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 no-scrollbar">
+                        <!-- Floorplan Card 1 -->
+                        <div class="flex-none w-full md:w-1/3 snap-center bg-gray-50 filter  rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                            <img src="image/floorplan.jpg"
+                                 alt="Floor Plan Type A"
+                                 class="w-full h-auto object-cover rounded-t-xl blur-sm hover:blur-60 transition-all duration-300"
+                                 loading="lazy">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold mb-2 text-primary-dark">4BHK + HOME OFFICE -  EAST FACING</h3>
+                                <p class="text-gray-600 mb-4">2150 - 2982 sqft</p>
+                                <button class="text-accent-gold font-medium flex items-center hover:underline" onclick="openModal('interestModal')">
+                                    Download Detailed Layout <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Floorplan Card 2 -->
+                        <div class="flex-none w-full md:w-1/3 snap-center bg-gray-50 filter  rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                            <img src="image/westgacing.jpg"
+                                 alt="Floor Plan Type B"
+                                 class="w-full h-auto object-cover rounded-t-xl blur-sm hover:blur-60 transition-all duration-300"
+                                 loading="lazy">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold mb-2 text-primary-dark">4BHK - HOME OFFICE - WEST FACING</h3>
+                                <p class="text-gray-600 mb-4">2150 - 2934 sqft</p>
+                                <button class="text-accent-gold font-medium flex items-center hover:underline" onclick="openModal('interestModal')">
+                                    Download Detailed Layout <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Floorplan Card 3 -->
+                        <div class="flex-none w-full md:w-1/3 snap-center bg-gray-50 filterrounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                            <img src="image/westfacingwithoutlift.jpg"
+                                 alt="Floor Plan Type C"
+                                 class="w-full h-auto object-cover rounded-t-xl blur-sm hover:blur-60 transition-all duration-300"
+                                 loading="lazy">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold mb-2 text-primary-dark">4BHK -HOME OFFICE - WEST FACING</h3>
+                                <p class="text-gray-600 mb-4">2150 - 2976 sqft - Without Lift</p>
+                                <button class="text-accent-gold font-medium flex items-center hover:underline" onclick="openModal('interestModal')">
+                                    Download Detailed Layout <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                         <!-- Floorplan Card 4 -->
+                       <div class="flex-none w-full md:w-1/3 snap-center bg-gray-50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+    <img src="image/eastfacewithoutho.jpg"
+         alt="Floor Plan Type B"
+         class="w-full h-auto object-cover rounded-t-xl filter blur-sm hover:blur-60 transition-all duration-300"
+         loading="lazy">
+    <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-2 text-primary-dark">4BHK - EAST FACING</h3>
+        <p class="text-gray-600 mb-4">1624 - 2505 sqft - Without Home Office</p>
+        <button class="text-accent-gold font-medium flex items-center hover:underline" onclick="openModal('interestModal')">
+            Download Detailed Layout <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+        </button>
+    </div>
+</div>
+                         <!-- Floorplan Card 5  -->
+                        <div class="flex-none w-full md:w-1/3 snap-center     bg-gray-50 filter rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                            <img  src="image/westfacewithoiuho.jpg"
+                                 alt="Floor Plan Type B"
+                                 class="w-full h-auto object-cover rounded-t-xl blur-sm hover:blur-60 transition-all duration-300"
+                                 loading="lazy">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold mb-2 text-primary-dark">4BHK - WEST FACING</h3>
+                                <p class="text-gray-600 mb-4">1624 - 2473 sqft - Without Home Office</p>
+                                <button class="text-accent-gold font-medium flex items-center hover:underline" onclick="openModal('interestModal')">
+                                    Download Detailed Layout <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+
+                    <!-- Carousel Controls -->
+                    <button onclick="scrollCarousel('floorplan-carousel', -1)" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="scrollCarousel('floorplan-carousel', 1)" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </section>
+<!-- 5. Master Plan Section (Infographic Style) -->
+            <section id="masterplan" class="py-16 luxury-section -mx-4 sm:-mx-6 lg:-mx-8"> <!-- Reduced py-20 to py-16 -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-center mb-4 text-white"><span class="text-accent-gold">Master Plan</span></h2>
+                    <!-- <p class="text-xl text-center text-gray-400 mb-12">An overview of the exclusive 10-acre low-density development.</p> -->
+
+                    <div id="master-plan-content" class="rounded-xl p-6 md:p-12 transition-all duration-1000">
+                        <!-- Placeholder for Site Layout Visualization -->
+                        <div class="h-96 w-full bg-gray-800 rounded-xl flex items-center justify-center mb-10 border border-accent-gold/20">
+                            <p class="text-xl text-gray-500"></p>
+                            <img  src="image/master.jpg"
+                                 alt="Floor Plan Type B"
+                                 class="w-full h-auto object-cover rounded-t-xl "
+                                 loading="lazy">
+                        </div>
+
+                        <!-- Amenities Infographic (Simplified list) -->
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                            <div class="flex flex-col items-center">
+                                <i data-lucide="" class="w-10 h-10 mb-3 text-accent-gold"></i>
+                                <p class="text-lg font-semibold text-white">Furnished Villa</p>
+                                <!-- <p class="text-sm text-gray-400">Rooftop access & viewing deck</p> -->
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <i data-lucide="" class="w-10 h-10 mb-3 text-accent-gold"></i>
+                                <p class="text-lg font-semibold text-white">Luxury amenities</p>
+                                <!-- <p class="text-sm text-gray-400">Dedicated concierge service</p> -->
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <i data-lucide="" class="w-10 h-10 mb-3 text-accent-gold"></i>
+                                <p class="text-lg font-semibold text-white">Solar Energy</p>
+                                <!-- <p class="text-sm text-gray-400">Lush landscaped gardens</p> -->
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <i data-lucide="" class="w-10 h-10 mb-3 text-accent-gold"></i>
+                                <p class="text-lg font-semibold text-white">Large open spaces</p>
+                                <!-- <p class="text-sm text-gray-400">State-of-the-art equipment</p> -->
+                            </div>
+                        </div>
+
+                        <!-- Master Plan CTA -->
+                        <div class="text-center mt-12">
+                            <!-- openModal function call confirmed to be correct in this context -->
+                            <button style="border-radius: 20px;" class="btn-gold px-10 py-3 text-lg" onclick="openModal('interestModal')">
+                                <i data-lucide="" class="w-5 h-5 mr-3"></i> Request Master Plan 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                      
+            
+            
+            <!-- NEW SECTION: Project Amenities (Scroll-Reveal) -->
+            <section id="amenities" class="py-16 bg-white">
+                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">Project <span class="text-accent-gold">Amenities</span></h2>
+                <p class="text-xl text-center text-gray-600 mb-12">Thoughtfully curated features for an enriched lifestyle.</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
+                    <!-- Amenity Card 1: Luxe Glamping Site -->
+                    <div class="amenity-card bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
+                        <i data-lucide="tent" class="w-10 h-10 mx-auto mb-3 text-accent-gold"></i>
+                        <p class="font-semibold text-primary-dark">Luxe Glamping Site</p>
+                    </div>
+
+                    <!-- Amenity Card 2: Bird Watching Deck -->
+                    <div class="amenity-card bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
+                        <i data-lucide="bird" class="w-10 h-10 mx-auto mb-3 text-accent-gold"></i>
+                        <p class="font-semibold text-primary-dark">Bird Watching Deck</p>
+                    </div>
+
+                    <!-- Amenity Card 3: Open-Air Theatre -->
+                    <div class="amenity-card bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
+                        <i data-lucide="monitor" class="w-10 h-10 mx-auto mb-3 text-accent-gold"></i>
+                        <p class="font-semibold text-primary-dark">Open-Air Theatre</p>
+                    </div>
+
+                    <!-- Amenity Card 4: Fishing Corner -->
+                    <div class="amenity-card bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
+                        <i data-lucide="fish" class="w-10 h-10 mx-auto mb-3 text-accent-gold"></i>
+                        <p class="font-semibold text-primary-dark">Fishing Corner</p>
+                    </div>
+
+                    <!-- Amenity Card 5: Infinity Pool -->
+                    <div class="amenity-card bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
+                        <i data-lucide="utensils" class="w-10 h-10 mx-auto mb-3 text-accent-gold"></i>
+                        <p class="font-semibold text-primary-dark">Infinity Pool</p>
+                    </div>
+
+                    <!-- Amenity Card 6: Squash Court -->
+                    <div class="amenity-card bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
+                        <i data-lucide="target" class="w-10 h-10 mx-auto mb-3 text-accent-gold"></i>
+                        <p class="font-semibold text-primary-dark">Squash Court</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 6. Gallery Section (4-Image Carousel with Lightbox) -->
+            <section id="gallery" class="py-16 bg-white"> <!-- Reduced py-20 to py-16 -->
+                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">Project <span class="text-accent-gold">Gallery</span></h2>
+                <!-- <p class="text-xl text-center text-gray-600 mb-12">A glimpse into the luxurious lifestyle awaiting you.</p> -->
+                 
+                <div class="relative">
+                    <div id="gallery-carousel" class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 no-scrollbar">
+                        <!-- Gallery Card 1 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(0)">
+                            <img src="image/gallery/1.jpg"
+                                 alt="Luxury Bedroom"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+                        <!-- Gallery Card 2 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(1)">
+                            <img src="image/gallery/2.jpg"
+                                 alt="Private Pool Deck"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+                        <!-- Gallery Card 3 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/3.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+                        <!-- Gallery Card 4 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(3)">
+                            <img src="image/gallery/4.jpg"
+                                 alt="Grand Foyer"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+
+  <!-- Gallery Card 5 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/5.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+
+                          <!-- Gallery Card 6 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/6.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+
+                          <!-- Gallery Card 7 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/7.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+  <!-- Gallery Card 8 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/8.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+
+                          <!-- Gallery Card 9 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/9.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+                        
+                          <!-- Gallery Card 9 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/10.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+                          <!-- Gallery Card 9 -->
+                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                            <img src="image/gallery/11.jpg"
+                                 alt="Gourmet Kitchen"
+                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
+                                 loading="lazy">
+                        </div>
+
+                    </div>
+                     <!-- Carousel Controls (Gallery) -->
+                    <button onclick="scrollCarousel('gallery-carousel', -1)" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="scrollCarousel('gallery-carousel', 1)" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <div class="text-center mt-10">
+                    <button style="border-radius: 20px;" class="btn-gold px-8 py-3 bg-primary-dark text-accent-gold border border-accent-gold hover:bg-primary-dark/80" onclick="openModal('interestModal')">
+                        GET BROUCHERS <i data-lucide="" class="w-4 h-4 ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+          
+
+            <!-- 7. Location Highlights -->
+            <section id="location" class="py-16"> <!-- Reduced py-20 to py-16 -->
+                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">Project <span class="text-accent-gold">Location</span> & Advantage</h2>
+                <p class="text-xl text-center text-gray-600 mb-10"></p>
+
+                <div class="grid md:grid-cols-2 gap-12">
+    <!-- Map Integration -->
+    <div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m27!1m12!1m3!1d112648.70315947827!2d77.37993214118505!3d12.841521459763522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m12!3e6!4m4!1s0x3bae38c490000001%3A0xe1d124aa566e616e!3m2!1d12.8415343!2d77.462334!4m5!1s0x3bae38c490000001%3A0xe1d124aa566e616e!2sSurvey%20No%2035%2C%20South%2C%20Kengeri%20hobli%2C%20Gangasandra%2C%20Bengaluru%2C%20Karnataka%20562109!3m2!1d12.8415343!2d77.462334!5e1!3m2!1sen!2sin!4v1760624777171!5m2!1sen!2sin" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+                    <!-- Neighborhood Amenities Showcase -->
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-semibold text-primary-dark border-b pb-2">Project Highlights</h3>
+                        <div class="grid grid-cols-2 gap-4 text-lg">
+                            <div class="flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 mr-3 text-accent-gold"></i> Kanakapura Road<span class="font-semibold ml-2">10 min</span></div>
+                            <div class="flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-3 text-accent-gold"></i> Mysore Road <span class="font-semibold ml-2">10 Min</span></div>
+                            <div class="flex items-center"><i data-lucide="hospital" class="w-5 h-5 mr-3 text-accent-gold"></i> Challahatta Metro Station <span class="font-semibold ml-2">15 Min</span></div>
+                            <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Tattva School<span class="font-semibold ml-2">16 Min</span></div>
+                         <div class="flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 mr-3 text-accent-gold"></i> Delhi public School<span class="font-semibold ml-2">6 Min</span></div>
+                            <div class="flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-3 text-accent-gold"></i> Vivekanantha Insitute<span class="font-semibold ml-2">6 Min</span></div>
+                            <div class="flex items-center"><i data-lucide="hospital" class="w-5 h-5 mr-3 text-accent-gold"></i> Don Bosco Institute<span class="font-semibold ml-2">15 Min</span></div>
+                            
+                            <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Global Village Tech park <span class="font-semibold ml-2">30 Min</span></div>
+                        <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Electronic City <span class="font-semibold ml-2">40 Min</span></div>
+                        
+                        </div>
+                        <div class="mt-8">
+                            <!-- <a href="#" class="text-primary-dark font-semibold flex items-center hover:text-accent-dark transition">
+                                Explore Neighborhood Guide <i data-lucide="external-link" class="w-4 h-4 ml-2"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Contact Section (Primary Lead Form) -->
+            <section id="contact" class="py-16 luxury-section -mx-4 sm:-mx-6 lg:-mx-8"> <!-- Reduced py-20 to py-16 -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 gap-12 items-start">
+                        <!-- Contact Form -->
+                        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
+                            <h3 class="text-3xl font-bold mb-6 text-accent-gold">Contact Us</h3>
+                            <p class="text-gray-300 mb-6">Secure Your Spot in Bengaluru’s Most Exclusive Villa Community</p>
+                            
+                            <form id="contact-form1">
+                                <div class="mb-4">
+                                    <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Full Name</label>
+                                    <!-- Input elements now use rounded-md -->
+                                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-primary-dark border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
+                                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-primary-dark border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition">
+                                </div>
+                                <div class="mb-6">
+                                    <label for="phone" class="block text-sm font-medium text-gray-400 mb-1">Phone Number</label>
+                                    <input type="tel" id="phone" name="mobile" required class="w-full px-4 py-3 bg-primary-dark border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Message</label>
+                                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 bg-primary-dark border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition"></textarea>
+                                </div>
+                                <br>
+                                <button id="contact_form_btn1" class="btn-gold w-full text-lg py-3">
+                                    <i data-lucide="" class="w-5 h-5 mr-3"></i> Submit Inquiry
+                                </button>
+                                <!-- <p id="form-message" class="mt-4 text-center text-sm hidden"></p> -->
+                                <div id="success_message_col" class='mt-2'>
+                       
+                                </div>
+                                <div id="error_message" class='error'>
+                                   
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Contact Channels -->
+                        <div class="pt-8">
+                            <h3 class="text-2xl font-bold mb-4 text-white">Direct Channels</h3>
+                            <div class="space-y-4">
+                                <a href="tel:+919876543210" class="flex items-center p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition">
+                                    <i data-lucide="phone" class="w-6 h-6 mr-4 text-accent-gold"></i>
+                                    <div>
+                                        <p class="text-sm text-gray-400">Call Us</p>
+                                        <p class="font-semibold text-lg text-white">+91 98807 79843</p>
+                                    </div>
+                                </a>
+                                <a href="mailto:sales@urbanrise.com" class="flex items-center p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition">
+                                    <i data-lucide="mail" class="w-6 h-6 mr-4 text-accent-gold"></i>
+                                    <div>
+                                        <p class="text-sm text-gray-400">Email</p>
+                                        <p class="font-semibold text-lg text-white">marketing@homeaurarealtor.com</p>
+                                    </div>
+                                </a>
+                                <a href="https://wa.me/9880779843" target="_blank" class="flex items-center p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition">
+                                    <i data-lucide="whatsapp" class="w-6 h-6 mr-4 text-accent-gold"></i>
+                                    <div>
+                                        <p class="text-sm text-gray-400">WhatsApp</p>
+                                        <p class="font-semibold text-lg text-white">Live Chat</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. FAQ Section (Accordion) -->
+            <!-- <section id="faq" class="py-16 bg-white"> 
+                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">Frequently Asked <span class="text-accent-gold">Questions</span></h2>
+                <div class="mt-10 max-w-4xl mx-auto space-y-4"> -->
+                    <!-- FAQ Item 1 -->
+                    <!-- <div class="border border-gray-200 rounded-xl shadow-md overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 text-lg font-semibold text-left text-primary-dark bg-white hover:bg-gray-50 transition" onclick="toggleAccordion('faq-1')">
+                            Is Urbanrise Paradise on Earth RERA registered?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transform transition-transform duration-300" id="icon-faq-1"></i>
+                        </button>
+                        <div id="faq-1" class="hidden p-5 pt-0 text-gray-700 transition-all duration-300 ease-in-out">
+                            <p>Yes, the project is fully RERA compliant. The RERA ID is available upon request in the E-Brochure. This ensures complete transparency and adherence to quality standards.</p>
+                        </div>
+                    </div> -->
+                    <!-- FAQ Item 2 -->
+                    <!-- <div class="border border-gray-200 rounded-xl shadow-md overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 text-lg font-semibold text-left text-primary-dark bg-white hover:bg-gray-50 transition" onclick="toggleAccordion('faq-2')">
+                            What are the financing options available for these luxury villas?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transform transition-transform duration-300" id="icon-faq-2"></i>
+                        </button>
+                        <div id="faq-2" class="hidden p-5 pt-0 text-gray-700 transition-all duration-300 ease-in-out">
+                            <p>We have tie-ups with leading national and international banks, offering bespoke financing solutions for high-value properties. Our finance team can guide you through tailored mortgage plans.</p>
+                        </div>
+                    </div> -->
+                    <!-- FAQ Item 3 -->
+                    <!-- <div class="border border-gray-200 rounded-xl shadow-md overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 text-lg font-semibold text-left text-primary-dark bg-white hover:bg-gray-50 transition" onclick="toggleAccordion('faq-3')">
+                            Can I customize the interior layout or finishes of my villa?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transform transition-transform duration-300" id="icon-faq-3"></i>
+                        </button>
+                        <div id="faq-3" class="hidden p-5 pt-0 text-gray-700 transition-all duration-300 ease-in-out">
+                            <p>While the structural integrity and external design remain consistent, we offer a select range of premium interior customization options, including fixture upgrades and smart home integrations, before a specific construction stage.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div> -->
+        <!-- End of Main Content Wrapper -->
+    </main>
+
+    <!-- 10. Footer -->
+    <footer class="luxury-section py-10 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <a href="#hero" class="text-2xl font-bold tracking-widest text-accent-gold uppercase block mb-4">
+                Urbanrise
+            </a>
+            <p class="text-sm text-gray-400 mb-6">
+                Urbanrise Paradise on Earth. Exclusive 4 BHK Villas. RERA Approved.
+                <br>Kanakapura Road, Bangalore.
+            </p>
+            <div class="flex justify-center space-x-6 text-gray-400">
+                <a href="#" class="hover:text-accent-gold transition" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-accent-gold transition" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-accent-gold transition" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-accent-gold transition" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+            <p class="mt-8 text-xs text-gray-500">
+    &copy; 2025 <a href="https://www.homeaurarealtor.com" target="_blank" class="hover:underline">Home Aura Realtor</a>. All Rights Reserved. | 
+    Designed & Powered by <a href="https://www.digitalgrowthx.in" target="_blank" class="hover:underline">Digital GrowthX</a>
+</p>
+
+ <p class="mt-8 text-xs text-gray-500">
+   
+    Disclaimer: This is not an official website of Urbanrise. This website is developed by Home Aura Realtor for marketing purpose only.
+</p>
+
+        </div>
+    </footer>
+
+
+    <!-- Lead Generation: Exit-Intent/Delayed Popup Modal -->
+    <div id="interestModal" class="fixed inset-0 bg-black bg-opacity-70 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300" onclick="if(event.target.id === 'interestModal') closeModal('interestModal')">
+        <div class="bg-primary-dark p-8 rounded-xl shadow-2xl max-w-lg w-full transform transition-all duration-300 scale-95" id="modal-content">
+            <div class="flex justify-end">
+                <button class="text-gray-400 hover:text-white" onclick="closeModal('interestModal')"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="text-center mb-6">
+                <i data-lucide="" class="w-10 h-10 mx-auto text-accent-gold mb-3"></i>
+                <h3  style="color: #EAB308;" class="text-3xl font-bold text-white mb-2">Request A Free Site Visit</h3>
+                <p class="text-gray-400">Unlock the Brochure & Launch Pricing Instantly.</p>
+            </div>
+            
+            <form id="popup-form">
+                <div class="mb-4">
+                    <!-- Input elements now use rounded-md -->
+                    <input type="text" name="name" placeholder="Your Name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition">
+                </div>
+                <div class="mb-4">
+                    <input type="email" name="email" placeholder="Email Address" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition">
+                </div>
+                <div class="mb-4">
+                    <input type="tel" name="mobile" placeholder="Phone Number" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-accent-gold focus:border-accent-gold transition">
+                </div>
+              <div>
+                <!-- <label for="onpage-message" class="block text-sm font-medium text-white">Message</label> -->
+                <textarea id="onpage-message" name="message" placeholder="Message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 bg-gray-800 text-white focus:border-accent-color focus:ring focus:ring-accent-color focus:ring-opacity-50"></textarea>
+            </div>
+                <button id="contact_form_btn2" style="border-radius: 20px;" class="btn-gold w-full text-lg py-3 mt-2">
+                    <i data-lucide="" class="w-5 h-5 mr-2"></i> Get My Villa Details Now
+                </button>
+                <!-- <p id="popup-form-message" class="mt-4 text-center text-sm hidden"></p> -->
+                <div id="success_message_col2" class='mt-2'>
+                       
+                </div>
+                <div id="error_message2" class='error'>
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Gallery Lightbox Modal -->
+    <div id="lightboxModal" class="fixed inset-0 bg-black bg-opacity-90 z-[100] hidden items-center justify-center p-4" onclick="if(event.target.id === 'lightboxModal') closeModal('lightboxModal')">
+        <div class="max-w-4xl w-full">
+            <div class="flex justify-end mb-4">
+                <button class="text-white hover:text-accent-gold" onclick="closeModal('lightboxModal')"><i data-lucide="x" class="w-8 h-8"></i></button>
+            </div>
+            <img id="lightbox-image" src="" alt="Gallery Image" class="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl">
+        </div>
+    </div>
+
+<script src="assets/js/contact.js"></script>
+<script src="assets/js/config.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- Firebase Mock (For Lead Generation Tracking) ---
+        // In a real application, this is where Firebase would be initialized for lead capture and analytics.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        
+        // Declare functions using 'let' so they are scoped to the entire script block
+        let trackEvent;
+        let saveLead;
+        
+        console.log(`App ID: ${appId}`);
+        if (firebaseConfig) {
+            console.log("Firebase config detected. Analytics and lead capture are ready.");
+            // Assign implementations for real setup
+            trackEvent = (name, data) => console.log(`[Analytics] Tracked event: ${name}`, data);
+            saveLead = (source, data) => {
+                console.log(`[Firestore] Lead captured from ${source}:`, data);
+                // In a real app, you'd use addDoc or setDoc here.
+                return new Promise(resolve => setTimeout(() => resolve({ success: true }), 500));
+            };
+        } else {
+            console.warn("Firebase config not available. Lead capture will be simulated.");
+            // Assign implementations for simulated setup
+            trackEvent = (name, data) => console.log(`[SIMULATED Analytics] Tracked event: ${name}`, data);
+            saveLead = (source, data) => {
+                console.log(`[SIMULATED Firestore] Lead captured from ${source}:`, data);
+                return new Promise(resolve => setTimeout(() => resolve({ success: true }), 500));
+            };
+        }
+        
+        // --- General Utility Functions ---
+
+        /** Opens a specified modal. */
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                modal.querySelector('#modal-content')?.classList.remove('scale-95', 'opacity-0');
+                modal.querySelector('#modal-content')?.classList.add('scale-100', 'opacity-100');
+                trackEvent('modal_opened', { modal_id: id });
+            }
+        }
+
+        /** Closes a specified modal. */
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        }
+
+        /** Toggles an accordion item visibility and icon. */
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                // Open
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                // Close
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+            trackEvent('faq_toggled', { faq_id: id });
+        }
+
+        /** Scrolls a carousel horizontally. */
+        function scrollCarousel(id, direction) {
+            const carousel = document.getElementById(id);
+            if (carousel) {
+                // Scroll by the width of one card (approx carousel.offsetWidth / 4 for 4 cards)
+                // Using 1/3 for better partial scrolling on wider screens, but keeping it smooth.
+                const scrollAmount = carousel.offsetWidth / 3; 
+                carousel.scrollBy({
+                    left: direction * scrollAmount,
+                    behavior: 'smooth'
+                });
+                trackEvent('carousel_scroll', { carousel_id: id, direction: direction > 0 ? 'next' : 'prev' });
+            }
+        }
+
+        // --- Gallery Lightbox Functions ---
+
+        const galleryImages = [
+            "https://placehold.co/800x600/152033/EAB308?text=Bedroom+View",
+            "https://placehold.co/800x600/29334D/EAB308?text=Pool+Deck",
+            "https://placehold.co/800x600/3D4766/EAB308?text=Kitchen+Design",
+            "https://placehold.co/800x600/515B80/EAB308?text=Foyer+Entrance"
+        ];
+
+        function openLightbox(index) {
+            const imgElement = document.getElementById('lightbox-image');
+            imgElement.src = galleryImages[index];
+            openModal('lightboxModal');
+            trackEvent('lightbox_opened', { image_index: index });
+        }
+
+
+        // --- Core Lead Form Submission Logic ---
+
+        async function handleFormSubmission(event, formId, source) {
+            event.preventDefault();
+            const form = document.getElementById(formId);
+            const messageElement = document.getElementById(`${formId}-message` || 'form-message');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<i data-lucide="loader-circle" class="w-5 h-5 mr-2 animate-spin"></i> Submitting...`;
+            messageElement.classList.add('hidden');
+
+            try {
+                // Simulate lead saving to Firestore
+                await saveLead(source, data);
+
+                messageElement.textContent = 'Thank you! Your request has been sent successfully.';
+                messageElement.classList.remove('hidden');
+                messageElement.classList.remove('text-red-500');
+                messageElement.classList.add('text-green-400');
+                
+                form.reset();
+                if (formId === 'popup-form') closeModal('interestModal');
+
+                trackEvent('lead_captured', { source: source, success: true });
+
+            } catch (error) {
+                console.error("Form submission failed:", error);
+                messageElement.textContent = 'Submission failed. Please try again.';
+                messageElement.classList.remove('hidden');
+                messageElement.classList.remove('text-green-400');
+                messageElement.classList.add('text-red-500');
+                trackEvent('lead_capture_failed', { source: source, error: error.message });
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = source === 'popup' ? '<i data-lucide="download-cloud" class="w-5 h-5 mr-2"></i> Send Dossier Instantly' : '<i data-lucide="send" class="w-5 h-5 mr-3"></i> Submit Inquiry';
+                lucide.createIcons(); // Re-render icons after changing innerHTML
+            }
+        }
+
+        // document.getElementById('contact-form').addEventListener('submit', (e) => handleFormSubmission(e, 'contact-form', 'main_contact'));
+        // document.getElementById('popup-form').addEventListener('submit', (e) => handleFormSubmission(e, 'popup-form', 'popup'));
+
+        // --- Lead Generation Optimization: Exit-Intent Popup Logic ---
+
+        let popupTriggered = false;
+        
+        function handleExitIntent(e) {
+            if (e.clientY < 50 && !popupTriggered) {
+                openModal('interestModal');
+                popupTriggered = true;
+                document.removeEventListener('mouseleave', handleExitIntent);
+            }
+        }
+
+        // Trigger on mouse leave (desktop)
+        document.addEventListener('mouseleave', handleExitIntent);
+        
+        // Alternative trigger on scroll (mobile/tablet)
+        let lastScrollTop = 0;
+        function handleScrollIntent() {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            // Check if scrolling up significantly, which can be an exit signal on mobile
+            if (st < lastScrollTop && st < 300 && !popupTriggered) { 
+                openModal('interestModal');
+                popupTriggered = true;
+                window.removeEventListener('scroll', handleScrollIntent);
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        }
+        window.addEventListener('scroll', handleScrollIntent);
+
+        // Delayed Popup (in case exit intent isn't triggered)
+        setTimeout(() => {
+            if (!popupTriggered) {
+                openModal('interestModal');
+                popupTriggered = true;
+            }
+        }, 30000); // 30 seconds delay
+
+        // --- Scroll Reveal Setup (for Amenities) ---
+        function setupScrollReveal() {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('loaded');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.2 // Trigger when 20% of the element is visible
+            });
+
+            document.querySelectorAll('.amenity-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // --- Initial Load & Animation Logic ---
+        
+        window.onload = function() {
+            // Apply image reveal class after load
+            document.getElementById('about-image')?.classList.add('loaded');
+            
+            // Setup the new scroll reveal animation for amenity cards
+            setupScrollReveal();
+
+            // Check for native lazy loading support (for analytics)
+            if ('loading' in HTMLImageElement.prototype) {
+                console.log("Native lazy loading supported.");
+            } else {
+                console.log("Native lazy loading not supported. Using standard load.");
+            }
+            trackEvent('page_loaded', { load_time: performance.now() });
+        }
+    </script>
+</body>
+</html>
