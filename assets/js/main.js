@@ -25,6 +25,107 @@ window.onclick = function(event) {
     }
 }
 
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    
+    // Toggle menu visibility
+    if (isExpanded) {
+        menu.classList.add('hidden');
+        menu.classList.remove('block');
+        button.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = 'auto';
+    } else {
+        menu.classList.remove('hidden');
+        menu.classList.add('block');
+        button.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Close mobile menu when clicking on a link
+function closeMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    menu.classList.add('hidden');
+    menu.classList.remove('block');
+    button.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = 'auto';
+}
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    
+    if (isExpanded) {
+        menu.classList.add('hidden');
+        menu.classList.remove('block');
+        button.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = 'auto';
+    } else {
+        menu.classList.remove('hidden');
+        menu.classList.add('block');
+        button.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Toggle contact form on mobile
+function toggleContactForm() {
+    const formContainer = document.getElementById('contactFormContainer');
+    const toggleIcon = document.getElementById('contactBarToggleIcon');
+    const isHidden = formContainer.classList.contains('hidden');
+    
+    if (isHidden) {
+        formContainer.classList.remove('hidden');
+        toggleIcon.classList.remove('fa-chevron-up');
+        toggleIcon.classList.add('fa-chevron-down');
+    } else {
+        formContainer.classList.add('hidden');
+        toggleIcon.classList.remove('fa-chevron-down');
+        toggleIcon.classList.add('fa-chevron-up');
+    }
+}
+
+// Initialize contact form visibility based on screen size
+function initContactForm() {
+    const formContainer = document.getElementById('contactFormContainer');
+    const toggleButton = document.getElementById('contactBarToggle');
+    
+    if (window.innerWidth < 768) { // Mobile
+        formContainer.classList.add('hidden');
+        if (toggleButton) toggleButton.classList.remove('hidden');
+    } else { // Desktop
+        formContainer.classList.remove('hidden');
+        if (toggleButton) toggleButton.classList.add('hidden');
+    }
+}
+
+// Handle window resize
+function handleResize() {
+    initContactForm();
+    
+    // On mobile, ensure the form container is always visible when resizing to desktop
+    if (window.innerWidth >= 768) {
+        const formContainer = document.getElementById('contactFormContainer');
+        formContainer.classList.remove('hidden');
+    }
+}
+
+// Close mobile menu when clicking on a link
+function closeMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    menu.classList.add('hidden');
+    menu.classList.remove('block');
+    button.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = 'auto';
+}
+
 // Initialize AOS and other functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS
@@ -34,6 +135,30 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 100,
         easing: 'ease-in-out'
     });
+    
+    // Mobile menu event listeners
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    }
+    
+    // Close mobile menu when clicking on a link
+    const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // Initialize contact form
+    initContactForm();
+    
+    // Contact form toggle for mobile
+    const contactBarToggle = document.getElementById('contactBarToggle');
+    if (contactBarToggle) {
+        contactBarToggle.addEventListener('click', toggleContactForm);
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', handleResize);
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

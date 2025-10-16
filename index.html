@@ -99,6 +99,12 @@
             opacity: 1;
             transform: translateY(0);
         }
+        #contact{
+                width: 100%;
+            }
+        @media screen and (min-width: 768px) {
+           
+        }
     </style>
 </head>
 
@@ -108,76 +114,123 @@
     <header id="main-header" class="luxury-section sticky top-0 z-50 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- LOGO PLACEMENT: Replaced text with <img> tag, set height to h-12 (48px) -->
+                <!-- Logo -->
                 <a href="#hero" class="flex items-center">
                     <img src="image/logo2.png" 
                          alt="Urbanrise Logo" 
                          class="h-12 w-auto"
                          onerror="this.src='https://placehold.co/150x48/0F172A/E2E8F0?text=Urbanrise'"
                          loading="lazy">
+                </a>
+
+                <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8 items-center">
-                    <a href="#about" class="text-sm font-medium hover:text-accent-gold transition">The Project</a>
-                    <a href="#floorplans" class="text-sm font-medium hover:text-accent-gold transition">Floor Plans</a>
-                    <a href="#amenities" class="text-sm font-medium hover:text-accent-gold transition">Amenities</a>
-                    <a href="#gallery" class="text-sm font-medium hover:text-accent-gold transition">Gallery</a>
-                    <a href="#location" class="text-sm font-medium hover:text-accent-gold transition">Location</a>
+                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-accent-gold transition">The Project</a>
+                    <a href="#floorplans" class="text-sm font-medium text-gray-300 hover:text-accent-gold transition">Floor Plans</a>
+                    <a href="#amenities" class="text-sm font-medium text-gray-300 hover:text-accent-gold transition">Amenities</a>
+                    <a href="#gallery" class="text-sm font-medium text-gray-300 hover:text-accent-gold transition">Gallery</a>
+                    <a href="#location" class="text-sm font-medium text-gray-300 hover:text-accent-gold transition">Location</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-accent-gold transition">Contact</a>
                 </nav>
-                <button   style="border-radius: 20px;" id="header-cta" class="btn-gold text-sm py-2 px-4 shadow-xl btn-attention" onclick="openModal('interestModal')">
-                    <i data-lucide="" class="w-4 h-4 mr-2"></i> BOOK A VILLA
-                </button>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button type="button" class="text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:block">
+                    <button style="border-radius: 20px;" id="header-cta" class="btn-gold text-sm py-2 px-4 shadow-xl btn-attention" onclick="openModal('interestModal')">
+                        <i class="fas fa-home mr-2"></i> BOOK A VILLA
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu (Hidden by default) -->
+        <div class="md:hidden hidden bg-gray-900 shadow-lg" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#about" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-4 py-3 text-base font-medium border-b border-gray-800">The Project</a>
+                <a href="#floorplans" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-4 py-3 text-base font-medium border-b border-gray-800">Floor Plans</a>
+                <a href="#amenities" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-4 py-3 text-base font-medium border-b border-gray-800">Amenities</a>
+                <a href="#gallery" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-4 py-3 text-base font-medium border-b border-gray-800">Gallery</a>
+                <a href="#location" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-4 py-3 text-base font-medium border-b border-gray-800">Location</a>
+                <a href="#contact" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-4 py-3 text-base font-medium border-b border-gray-800">Contact</a>
+                <div class="pt-2">
+                    <button style="border-radius: 20px;" class="w-full btn-gold text-sm py-3 px-4 shadow-xl btn-attention flex items-center justify-center" onclick="openModal('interestModal')">
+                        <i class="fas fa-home mr-2"></i> BOOK A VILLA
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
     <main>
         <!-- 2. Hero Section (Cinematic) -->
-        <section id="hero" class="relative h-[80vh] md:h-[90vh] flex items-center justify-center luxury-section overflow-hidden">
-            <!-- Video Background for cinematic effect -->
-            <div class="absolute inset-0 w-full h-full bg-black/40 z-10"></div>
+        <section id="hero" class="relative min-h-[85vh] md:min-h-screen flex items-center justify-center luxury-section overflow-hidden px-4 sm:px-6 lg:px-8">
+            <!-- Video Background -->
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-40" id="hero-video">
                 <source src="image/urban.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="absolute inset-0 flex items-center justify-center z-20">
-                <button id="play-button" onclick="openVideoModal()" class="bg-accent-gold/90 hover:bg-accent-gold text-white rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center shadow-lg transform transition-all duration-300 hover:scale-110">
-                    <i class="fas fa-play text-2xl md:text-3xl"></i>
-                </button>
+            
+            <!-- Dark Overlay with Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70 z-10"></div>
+            
+            <!-- Content Container -->
+            <div class="relative z-20 w-full max-w-6xl mx-auto px-4 pt-24 pb-16 md:py-20 text-center">
+                <div class="mb-6 md:mb-10" data-aos="fade-up">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-extrabold leading-tight text-white">
+                        URBANRISE
+                        <span class="block text-accent-gold mt-2 md:mt-4">Paradise on Earth</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-gray-200 mt-4 md:mt-6 max-w-2xl mx-auto px-4">
+                        Luxury Meets Nature — <span class="text-accent-gold font-semibold">4BHK VILLAS</span> on Kanakapura Road for the Truly Uncompromising.
+                    </p>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4" data-aos="fade-up" data-aos-delay="100">
+                    <button style="border-radius: 20px;" class="w-full sm:w-auto btn-gold text-base sm:text-lg px-6 sm:px-8 py-3 shadow-2xl btn-attention" onclick="openModal('interestModal')">
+                        <i class="fas fa-calendar-alt mr-2"></i> BOOK A SITE VISIT
+                    </button>
+                    <button onclick="openVideoModal()" class="w-full sm:w-auto flex items-center justify-center text-white hover:text-accent-gold transition-colors duration-300 group mt-2 sm:mt-0">
+                        <span class="bg-white/20 backdrop-blur-sm rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group-hover:bg-accent-gold/80 transition-colors duration-300">
+                            <i class="fas fa-play text-sm sm:text-lg"></i>
+                        </span>
+                        <span class="ml-2 sm:ml-3 font-medium text-sm sm:text-base">Watch Video</span>
+                    </button>
+                </div>
+                
+                <!-- Price Badge -->
+                <div class="mt-8 sm:mt-10" data-aos="fade-up" data-aos-delay="150">
+                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-white/20">
+                        <span class="text-white text-sm sm:text-base font-medium">Starting from</span>
+                        <span class="ml-2 text-accent-gold font-bold text-lg sm:text-xl">₹3.17 Cr*</span>
+                    </div>
+                </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce" data-aos="fade-up" data-aos-delay="200">
+                <a href="#about" class="text-white hover:text-accent-gold transition-colors duration-300">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
             </div>
             
             <!-- Video Modal -->
             <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center">
                 <div class="relative w-full max-w-4xl mx-4">
-                    <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-accent-gold text-3xl">
+                    <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-accent-gold text-3xl transition-colors duration-300">
                         <i class="fas fa-times"></i>
                     </button>
                     <video id="modalVideo" controls class="w-full rounded-lg" src="image/urban.mp4"></video>
                 </div>
             </div>
-                <!-- IMPORTANT: Replace the 'src' below with the actual URL to your compressed MP4 video file -->
-                <source src="image/urban.mp4" type="video/mp4">
-                <!-- Fallback: Placeholder image if video doesn't load -->
-                <!-- <img src="https://placehold.co/1920x900/1e293b/a8a8a8?text=Cinematic+Villa+Video+Placeholder" 
-                     alt="Paradise on Earth Villa Exterior" 
-                     class="absolute inset-0 w-full h-full object-cover opacity-40"/> -->
-            </video>
-            
-            <!-- Dark Gradient Overlay for Text Readability -->
-            <div class="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/30 to-transparent"></div>
-
-            <div class="relative z-10 text-center max-w-4xl px-4">
-                <!-- <p class="text-lg text-accent-gold font-medium mb-3 tracking-widest uppercase animate-pulse">The Address of Affluence</p> -->
-                <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight mb-8 text-white">
-                    URBANRISE
-                    <span class="block text-accent-gold">Paradise on Earth</span>
-                </h1>
-                <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                    Luxury Meets Nature — <span style="color:#EAB308; font-weight: bold" >4BHK VILLAS </span> on Kanakapura Road for the Truly Uncompromising.
-                </p>
-                <button  style="border-radius: 20px;"  class="btn-gold text-xl px-10 py-4 shadow-2xl btn-attention" onclick="openModal('interestModal')">
-                    <i data-lucide="" class="w-6 h-6 mr-3"></i> STARTS @ <span style="color: blue; font-weight: bold; font-size: larger;" >₹3.17cr*</span> onwards
-                </button>
-                <!-- Trust Signal -->
-                <div class="flex justify-center items-center mt-6 space-x-4 text-gray-400">
                     <i data-lucide="shield-check" class="w-5 h-5"></i>
                     <p class="text-sm">Limited Units Only Available</p>
                 </div>
@@ -329,7 +382,7 @@
                             <img  src="image/master.jpg"
                                  alt="Floor Plan Type B"
                                  class="w-full h-auto object-cover rounded-t-xl "
-                                 loading="lazy">
+                                 loading="lazy" style="width: 100%; height: 100%;">
                         </div>
 
                         <!-- Amenities Infographic (Simplified list) -->
@@ -525,28 +578,146 @@
 
             <!-- 7. Location Highlights -->
             <section id="location" class="py-16"> <!-- Reduced py-20 to py-16 -->
-                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">Project <span class="text-accent-gold">Location</span> & Advantage</h2>
-                <p class="text-xl text-center text-gray-600 mb-10"></p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-primary-dark" data-aos="fade-up">
+                    Project <span class="text-accent-gold">Location</span> & Advantages
+                </h2>
+                <p class="text-lg text-center text-gray-600 mb-8 max-w-3xl mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+                    Strategically located for convenience and connectivity
+                </p>
 
-                <div class="grid md:grid-cols-2 gap-12">
-    <!-- Map Integration -->
-    <div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m27!1m12!1m3!1d112648.70315947827!2d77.37993214118505!3d12.841521459763522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m12!3e6!4m4!1s0x3bae38c490000001%3A0xe1d124aa566e616e!3m2!1d12.8415343!2d77.462334!4m5!1s0x3bae38c490000001%3A0xe1d124aa566e616e!2sSurvey%20No%2035%2C%20South%2C%20Kengeri%20hobli%2C%20Gangasandra%2C%20Bengaluru%2C%20Karnataka%20562109!3m2!1d12.8415343!2d77.462334!5e1!3m2!1sen!2sin!4v1760624777171!5m2!1sen!2sin" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-                    <!-- Neighborhood Amenities Showcase -->
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-semibold text-primary-dark border-b pb-2">Project Highlights</h3>
-                        <div class="grid grid-cols-2 gap-4 text-lg">
-                            <div class="flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 mr-3 text-accent-gold"></i> Kanakapura Road<span class="font-semibold ml-2">10 min</span></div>
-                            <div class="flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-3 text-accent-gold"></i> Mysore Road <span class="font-semibold ml-2">10 Min</span></div>
-                            <div class="flex items-center"><i data-lucide="hospital" class="w-5 h-5 mr-3 text-accent-gold"></i> Challahatta Metro Station <span class="font-semibold ml-2">15 Min</span></div>
-                            <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Tattva School<span class="font-semibold ml-2">16 Min</span></div>
-                         <div class="flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 mr-3 text-accent-gold"></i> Delhi public School<span class="font-semibold ml-2">6 Min</span></div>
-                            <div class="flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-3 text-accent-gold"></i> Vivekanantha Insitute<span class="font-semibold ml-2">6 Min</span></div>
-                            <div class="flex items-center"><i data-lucide="hospital" class="w-5 h-5 mr-3 text-accent-gold"></i> Don Bosco Institute<span class="font-semibold ml-2">15 Min</span></div>
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                    <!-- Map Integration -->
+                    <div class="rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:shadow-2xl" data-aos="fade-right">
+                        <div class="aspect-w-16 aspect-h-9 w-full h-64 sm:h-80 md:h-96">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m27!1m12!1m3!1d112648.70315947827!2d77.37993214118505!3d12.841521459763522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m12!3e6!4m4!1s0x3bae38c490000001%3A0xe1d124aa566e616e!3m2!1d12.8415343!2d77.462334!4m5!1s0x3bae38c490000001%3A0xe1d124aa566e616e!2sSurvey%20No%2035%2C%20South%2C%20Kengeri%20hobli%2C%20Gangasandra%2C%20Bengaluru%2C%20Karnataka%20562109!3m2!1d12.8415343!2d77.462334!5e1!3m2!1sen!2sin!4v1760624777171!5m2!1sen!2sin" 
+                                class="w-full h-full border-0" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Highlights -->
+                    <div class="space-y-6" data-aos="fade-left">
+                        <div class="bg-gradient-to-r from-accent-gold/10 to-transparent p-6 rounded-xl">
+                            <h3 class="text-2xl md:text-3xl font-bold text-primary-dark mb-6 pb-3 border-b border-accent-gold/30">
+                                <i class="fas fa-map-marker-alt text-accent-gold mr-2"></i>
+                                Project Highlights
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-road text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Kanakapura Road</h4>
+                                            <p class="text-sm text-gray-600">10 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-subway text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Challahatta Metro</h4>
+                                            <p class="text-sm text-gray-600">15 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-graduation-cap text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Tattva School</h4>
+                                            <p class="text-sm text-gray-600">16 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-briefcase text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Mysore Road</h4>
+                                            <p class="text-sm text-gray-600">10 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-graduation-cap text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Delhi public School</h4>
+                                            <p class="text-sm text-gray-600">6 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-briefcase text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Vivekanantha Insitute</h4>
+                                            <p class="text-sm text-gray-600">6 min drive</p>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-hospital text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Don Bosco Institute</h4>
+                                            <p class="text-sm text-gray-600">15 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-shopping-cart text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Global Village Tech park</h4>
+                                            <p class="text-sm text-gray-600">30 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                                    <div class="flex items-start">
+                                        <div class="bg-accent-gold/10 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-shopping-cart text-accent-gold text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800">Electronic City</h4>
+                                            <p class="text-sm text-gray-600">40 min drive</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                         <!-- <div class="flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 mr-3 text-accent-gold"></i> Delhi public School<span class="font-semibold ml-2">6 Min</span></div> -->
+                            <!-- <div class="flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-3 text-accent-gold"></i> Vivekanantha Insitute<span class="font-semibold ml-2">6 Min</span></div> -->
+                            <!-- <div class="flex items-center"><i data-lucide="hospital" class="w-5 h-5 mr-3 text-accent-gold"></i> Don Bosco Institute<span class="font-semibold ml-2">15 Min</span></div>
                             
                             <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Global Village Tech park <span class="font-semibold ml-2">30 Min</span></div>
-                        <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Electronic City <span class="font-semibold ml-2">40 Min</span></div>
+                        <div class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-3 text-accent-gold"></i> Electronic City <span class="font-semibold ml-2">40 Min</span></div> -->
                         
                         </div>
                         <div class="mt-8">
@@ -559,11 +730,11 @@
             </section>
 
             <!-- 8. Contact Section (Primary Lead Form) -->
-            <section id="contact" class="py-16 luxury-section -mx-4 sm:-mx-6 lg:-mx-8"> <!-- Reduced py-20 to py-16 -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid md:grid-cols-2 gap-12 items-start">
+            <section id="contact" class="luxury-section overflow-hidden">
+                <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-12 items-start">
                         <!-- Contact Form -->
-                        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
+                        <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl mt-4 mb-4">
                             <h3 class="text-3xl font-bold mb-6 text-accent-gold">Contact Us</h3>
                             <p class="text-gray-300 mb-6">Secure Your Spot in Bengaluru’s Most Exclusive Villa Community</p>
                             
@@ -600,28 +771,34 @@
                         </div>
 
                         <!-- Contact Channels -->
-                        <div class="pt-8">
-                            <h3 class="text-2xl font-bold mb-4 text-white">Direct Channels</h3>
-                            <div class="space-y-4">
-                                <a href="tel:+919876543210" class="flex items-center p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition">
-                                    <i data-lucide="phone" class="w-6 h-6 mr-4 text-accent-gold"></i>
-                                    <div>
-                                        <p class="text-sm text-gray-400">Call Us</p>
-                                        <p class="font-semibold text-lg text-white">+91 98807 79843</p>
+                        <div class="w-full px-0 md:px-4 py-6 md:py-8">
+                            <h3 class="text-2xl font-bold mb-6 text-white text-center md:text-left">Direct Channels</h3>
+                            <div class="space-y-4 max-w-md mx-auto md:mx-0">
+                                <a href="tel:+919876543210" class="flex items-center p-4 bg-gray-800/90 rounded-xl hover:bg-gray-700/90 transition-all duration-300 w-full">
+                                    <div class="bg-accent-gold/10 p-2 rounded-lg mr-4">
+                                        <i data-lucide="phone" class="w-5 h-5 text-accent-gold"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm text-gray-400 truncate">Call Us</p>
+                                        <p class="font-semibold text-base sm:text-lg text-white truncate">+91 98807 79843</p>
                                     </div>
                                 </a>
-                                <a href="mailto:sales@urbanrise.com" class="flex items-center p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition">
-                                    <i data-lucide="mail" class="w-6 h-6 mr-4 text-accent-gold"></i>
-                                    <div>
+                                <a href="mailto:marketing@homeaurarealtor.com" class="flex items-center p-4 bg-gray-800/90 rounded-xl hover:bg-gray-700/90 transition-all duration-300 w-full">
+                                    <div class="bg-accent-gold/10 p-2 rounded-lg mr-4">
+                                        <i data-lucide="mail" class="w-5 h-5 text-accent-gold"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
                                         <p class="text-sm text-gray-400">Email</p>
-                                        <p class="font-semibold text-lg text-white">marketing@homeaurarealtor.com</p>
+                                        <p class="font-semibold text-base sm:text-lg text-white truncate">marketing@homeaurarealtor.com</p>
                                     </div>
                                 </a>
-                                <a href="https://wa.me/9880779843" target="_blank" class="flex items-center p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition">
-                                    <i data-lucide="whatsapp" class="w-6 h-6 mr-4 text-accent-gold"></i>
-                                    <div>
+                                <a href="https://wa.me/919880779843" target="_blank" class="flex items-center p-4 bg-gray-800/90 rounded-xl hover:bg-gray-700/90 transition-all duration-300 w-full">
+                                    <div class="bg-accent-gold/10 p-2 rounded-lg mr-4">
+                                        <i data-lucide="message-circle" class="w-5 h-5 text-accent-gold"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
                                         <p class="text-sm text-gray-400">WhatsApp</p>
-                                        <p class="font-semibold text-lg text-white">Live Chat</p>
+                                        <p class="font-semibold text-base sm:text-lg text-white">Live Chat</p>
                                     </div>
                                 </a>
                             </div>
@@ -671,48 +848,73 @@
     </main>
 
     <!-- Sticky WhatsApp Button -->
-    <a href="https://wa.me/919952402011" class="fixed bottom-24 right-6 z-50 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110" target="_blank" rel="noopener noreferrer">
+    <a href="https://wa.me/919952402011" class="fixed bottom-24 right-4 sm:right-6 z-40 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp text-2xl"></i>
     </a>
-
+    
     <!-- Sticky Contact Button -->
-    <button onclick="openModal('interestModal')" class="fixed bottom-6 right-6 z-50 bg-accent-gold hover:bg-yellow-600 text-gray-900 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110">
+    <button onclick="openModal('interestModal')" class="fixed bottom-6 right-4 sm:right-6 z-40 bg-accent-gold hover:bg-yellow-600 text-gray-900 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110">
         <i class="fas fa-envelope text-2xl"></i>
     </button>
 
-    <!-- Sticky Bottom Contact Bar -->
-   <!-- Sticky Bottom Contact Bar -->
-<div class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white z-40 shadow-lg border-t border-gray-800">
-    <div class="container mx-auto px-4 py-2">
-        <div id="success_message_col3" class="hidden mb-2 p-2 bg-green-100 text-green-700 rounded text-center text-sm"></div>
-        <div id="error_message3" class="hidden mb-2 p-2 bg-red-100 text-red-700 rounded text-center text-sm"></div>
-        <div class="flex items-center justify-between">
-            <!-- Logo -->
-            <div class="hidden md:block w-32">
-                <img src="image/logofooter.png" alt="Urbanrise Logo" class="h-12 object-contain">
+    <!-- Contact Form Section -->
+    <div class="fixed bottom-0 left-0 right-0 z-30 bg-gray-900/95 backdrop-blur-md text-white shadow-2xl border-t border-gray-700/50 will-change-transform" id="contactFormSection">
+        <div class="transform transition-transform duration-300 ease-in-out" id="contactFormInner">
+        <!-- Mobile Toggle Button -->
+        <button id="contactBarToggle" class="w-full py-3 bg-gray-900/95 backdrop-blur-md text-gray-300 hover:text-accent-gold transition-colors flex items-center justify-center text-sm md:hidden">
+            <i class="fas fa-chevron-up text-xs mr-2 transition-transform" id="contactBarToggleIcon"></i>
+            <span>Contact Us</span>
+        </button>
+        </div>
+        <div class="container mx-auto px-2 sm:px-4 py-2">
+            <div id="contactFormContainer" class="hidden md:block">
+                <div id="success_message_col3" class="hidden mb-2 p-2 bg-green-100 text-green-800 rounded text-center text-sm"></div>
+                <div id="error_message3" class="hidden mb-2 p-2 bg-red-100 text-red-800 rounded text-center text-sm"></div>
+                <div class="flex flex-col sm:flex-row items-stretch gap-3">
+                    <!-- Logo - Hidden on mobile -->
+                    <div class="hidden md:flex items-center w-32">
+                        <img src="image/logofooter.png" alt="Urbanrise Logo" class="h-8 object-contain" loading="lazy">
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <form id="sticky-contact-form" class="w-full grid grid-cols-1 sm:grid-cols-4 gap-2">
+                        <div class="sm:col-span-1">
+                            <div class="relative">
+                                <input type="text" name="name" placeholder="Your Name" 
+                                    class="w-full px-4 py-2.5 text-sm sm:text-base rounded-lg bg-gray-800/80 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-transparent text-white placeholder-gray-400 transition-all duration-200" 
+                                    required>
+                                <i class="fas fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <div class="relative">
+                                <input type="email" name="email" placeholder="Your Email" 
+                                    class="w-full px-4 py-2.5 text-sm sm:text-base rounded-lg bg-gray-800/80 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-transparent text-white placeholder-gray-400 transition-all duration-200" 
+                                    required>
+                                <i class="fas fa-envelope absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <div class="relative">
+                                <input type="tel" name="mobile" placeholder="Your Mobile" 
+                                    class="w-full px-4 py-2.5 text-sm sm:text-base rounded-lg bg-gray-800/80 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-transparent text-white placeholder-gray-400 transition-all duration-200" 
+                                    required>
+                                <i class="fas fa-phone-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <button id="contact_form_btn3" type="submit" 
+                            class="sm:col-span-1 bg-accent-gold hover:bg-yellow-500 text-gray-900 font-semibold px-4 py-2.5 text-sm sm:text-base rounded-lg transition-all duration-300 whitespace-nowrap flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-95">
+                            <i class="fas fa-phone-alt text-sm"></i>
+                            <span>Get Call Back</span>
+                        </button>
+                    </form>
+                </div>
             </div>
-            
-            <!-- Contact Form -->
-            <form id="sticky-contact-form" class="sticky-contact-form flex-1 flex flex-wrap items-center justify-end gap-3">
-                <div class="flex-1 min-w-[150px]">
-                    <input type="text" name="name" placeholder="Your Name" class="w-full px-3 py-1.5 text-sm rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold" required>
-                </div>
-                <div class="flex-1 min-w-[150px]">
-                    <input type="email" name="email" placeholder="Your Email" class="w-full px-3 py-1.5 text-sm rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold" required>
-                </div>
-                <div class="flex-1 min-w-[150px]">
-                    <input type="tel" name="mobile" placeholder="Your Mobile" class="w-full px-3 py-1.5 text-sm rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-gold" required>
-                </div>
-                <button id="contact_form_btn3" type="submit" class="bg-accent-gold hover:bg-yellow-600 text-gray-900 font-semibold px-4 py-1.5 text-sm rounded transition duration-300 whitespace-nowrap">
-                    Get Call Back
-                </button>
-            </form>
         </div>
     </div>
-</div>
 
     <!-- 10. Footer -->
-    <footer class="luxury-section py-10 border-t border-gray-800 relative z-30" style="margin-bottom: 80px;">
+    <footer class="luxury-section py-10 border-t border-gray-800 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 <!-- Logo and Basic Info -->
