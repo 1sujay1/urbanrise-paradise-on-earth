@@ -496,111 +496,80 @@
             </section>
             
             <!-- 6. Gallery Section (4-Image Carousel with Lightbox) -->
-            <section id="gallery" class="py-16 bg-white"> <!-- Reduced py-20 to py-16 -->
-                <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">Project <span class="text-accent-gold">Gallery</span></h2>
-                <!-- <p class="text-xl text-center text-gray-600 mb-12">A glimpse into the luxurious lifestyle awaiting you.</p> -->
-                 
-                <div class="relative">
-                    <div id="gallery-carousel" class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 no-scrollbar">
-                        <!-- Gallery Card 1 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(0)">
-                            <img src="image/gallery/1.jpg"
-                                 alt="Luxury Bedroom"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
-                        <!-- Gallery Card 2 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(1)">
-                            <img src="image/gallery/2.jpg"
-                                 alt="Private Pool Deck"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
-                        <!-- Gallery Card 3 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/3.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
-                        <!-- Gallery Card 4 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(3)">
-                            <img src="image/gallery/4.jpg"
-                                 alt="Grand Foyer"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
+            <section id="gallery" class="py-16 bg-white">
+    <h2 class="text-4xl font-bold text-center mb-4 text-primary-dark">
+        Project <span class="text-accent-gold">Gallery</span>
+    </h2>
 
-  <!-- Gallery Card 5 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/5.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
+    <div class="relative">
+        <div id="gallery-carousel" class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 no-scrollbar">
 
-                          <!-- Gallery Card 6 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/6.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
+            <!-- Auto-indexed gallery items (0 - 10) -->
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(0)">
+                <img src="image/gallery/1.jpg" alt="Gallery Image 1" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
 
-                          <!-- Gallery Card 7 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/7.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
-  <!-- Gallery Card 8 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/8.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(1)">
+                <img src="image/gallery/2.jpg" alt="Gallery Image 2" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
 
-                          <!-- Gallery Card 9 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/9.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
-                        
-                          <!-- Gallery Card 9 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/10.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
-                          <!-- Gallery Card 9 -->
-                        <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
-                            <img src="image/gallery/11.jpg"
-                                 alt="Gourmet Kitchen"
-                                 class="w-full h-64 object-cover rounded-xl shadow-lg"
-                                 loading="lazy">
-                        </div>
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(2)">
+                <img src="image/gallery/3.jpg" alt="Gallery Image 3" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
 
-                    </div>
-                     <!-- Carousel Controls (Gallery) -->
-                    <button onclick="scrollCarousel('gallery-carousel', -1)" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
-                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                    </button>
-                    <button onclick="scrollCarousel('gallery-carousel', 1)" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
-                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                    </button>
-                </div>
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(3)">
+                <img src="image/gallery/4.jpg" alt="Gallery Image 4" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
 
-                <div class="text-center mt-10">
-                    <button style="border-radius: 20px;" class="btn-gold px-8 py-3 bg-primary-dark text-accent-gold border border-accent-gold hover:bg-primary-dark/80" onclick="openModal('interestModal')">
-                        GET BROUCHERS <i data-lucide="" class="w-4 h-4 ml-2"></i>
-                    </button>
-                </div>
-            </section>
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(4)">
+                <img src="image/gallery/5.jpg" alt="Gallery Image 5" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(5)">
+                <img src="image/gallery/6.jpg" alt="Gallery Image 6" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(6)">
+                <img src="image/gallery/7.jpg" alt="Gallery Image 7" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(7)">
+                <img src="image/gallery/8.jpg" alt="Gallery Image 8" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(8)">
+                <img src="image/gallery/9.jpg" alt="Gallery Image 9" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(9)">
+                <img src="image/gallery/10.jpg" alt="Gallery Image 10" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+            <div class="flex-none w-4/5 md:w-1/4 snap-start cursor-pointer transition transform hover:scale-[1.02] duration-300" onclick="openLightbox(10)">
+                <img src="image/gallery/11.jpg" alt="Gallery Image 11" class="w-full h-64 object-cover rounded-xl shadow-lg">
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <button onclick="scrollCarousel('gallery-carousel', -1)" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+
+        <button onclick="scrollCarousel('gallery-carousel', 1)" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-primary-dark/70 text-white p-3 rounded-full hover:bg-primary-dark transition hidden md:block z-20">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <div class="text-center mt-10">
+        <button style="border-radius: 20px;" class="btn-gold px-8 py-3 bg-primary-dark text-accent-gold border border-accent-gold hover:bg-primary-dark/80" onclick="openModal('interestModal')">
+            GET BROUCHERS
+        </button>
+    </div>
+</section>
+
+
+
 
           
 
@@ -1176,10 +1145,17 @@
         // --- Gallery Lightbox Functions ---
 
         const galleryImages = [
-            "https://placehold.co/800x600/152033/EAB308?text=Bedroom+View",
-            "https://placehold.co/800x600/29334D/EAB308?text=Pool+Deck",
-            "https://placehold.co/800x600/3D4766/EAB308?text=Kitchen+Design",
-            "https://placehold.co/800x600/515B80/EAB308?text=Foyer+Entrance"
+            "image/gallery/1.jpg",
+            "image/gallery/2.jpg",
+            "image/gallery/3.jpg",
+            "image/gallery/4.jpg",
+            "image/gallery/5.jpg",
+            "image/gallery/6.jpg",
+            "image/gallery/7.jpg",
+            "image/gallery/8.jpg",
+            "image/gallery/9.jpg",
+            "image/gallery/10.jpg"
+            
         ];
 
         function openLightbox(index) {
@@ -1309,6 +1285,9 @@
             }
             trackEvent('page_loaded', { load_time: performance.now() });
         }
+
+
+
     </script>
 </body>
 </html>
